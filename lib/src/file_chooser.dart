@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_desktop_services/src/plugin_service.dart';
 
-
 const kFileChooserChannel = 'flutter/filechooser';
 const kShowOpenPanelMethod = "FileChooser.Show.Open";
 const kShowSavePanelMethod = "FileChooser.Show.Save";
@@ -18,13 +17,13 @@ class FilechooserService extends PluginService {
   final String clientID;
 
   StreamController<List<String>> _pathSelectionStreamer =
-  new StreamController<List<String>>();
+      new StreamController<List<String>>();
 
   Stream<List<String>> get pathSelection$ => _pathSelectionStreamer.stream;
 
   FilechooserService({String channelName: kFileChooserChannel, String clientID})
-    : this.clientID = clientID,
-      super(channelName) {
+      : this.clientID = clientID,
+        super(channelName) {
     channel.setMethodCallHandler((call) {
       if (call.method == kFileChooserCallbackMethod) {
         final res = call.arguments;
@@ -54,14 +53,16 @@ class FilechooserService extends PluginService {
     channel.invokeMethod(kShowOpenPanelMethod, args);
   }
 
-  void save({String initialPath: '/'}) {
-    final args = {
+  void save(
+      {String initialPath: '/',
+      List<String> allowedFileTypes: const <String>[]}) {
+    final args = <String, dynamic>{
       kPlatformClientIDKey: clientID,
       kInitialDirectoryKey: initialPath,
-      kAllowedFileTypesKey: ['json']
-      /*kCanChooseDirectoriesKey: allowsDirectories,
-      kAllowsMultipleSelectionKey: allowsMultipleSelection,*/
     };
+    if (allowedFileTypes.length > 0) {
+      args[kAllowedFileTypesKey] = allowedFileTypes;
+    }
     channel.invokeMethod(kShowSavePanelMethod, args);
   }
 
