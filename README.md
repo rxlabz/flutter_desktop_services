@@ -1,9 +1,7 @@
-# flutter_desktop_services
+# Flutter Desktop plugins services
 
-Flutter Desktop plugins services
+conveniant services to work with [flutter-desktop-embedding](https://github.com/google/flutter-desktop-embedding) plugins on desktop
 
-## Getting Started
+- FileChooserService
 
-For help getting started with Flutter, view our online [documentation](https://flutter.io/).
-
-For help on editing package code, view the [documentation](https://flutter.io/developing-packages/).
+- ColorpickerService

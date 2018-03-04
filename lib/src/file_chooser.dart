@@ -21,9 +21,9 @@ class FilechooserService extends PluginService {
 
   Stream<List<String>> get pathSelection$ => _pathSelectionStreamer.stream;
 
-  FilechooserService({String channelName: kFileChooserChannel, String clientID})
+  FilechooserService({String clientID})
       : this.clientID = clientID,
-        super(channelName) {
+        super(kFileChooserChannel) {
     channel.setMethodCallHandler((call) {
       if (call.method == kFileChooserCallbackMethod) {
         final res = call.arguments;

@@ -14,7 +14,7 @@ class ColorPickerService extends PluginService {
 
   Stream<Color> get colorSelection$ => _colorSelectionStreamer.stream;
 
-  ColorPickerService({String channelName}) : super(channelName) {
+  ColorPickerService() : super(kColorPanelChannel) {
     channel.setMethodCallHandler((call) {
       if (call.method == kColorPanelCallback) {
         final res = call.arguments[0];
